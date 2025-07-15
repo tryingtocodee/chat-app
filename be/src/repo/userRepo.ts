@@ -20,7 +20,7 @@ export const createUserRepo = async(userDto : createUserDto ) => {
     try{
         const user = await User.findOne({where : {email : userDto.email}}) 
 
-        if(!user){
+        if(user){
             throw new Error("user with this email already exists")
         }
 
@@ -34,9 +34,25 @@ export const createUserRepo = async(userDto : createUserDto ) => {
         if(!newUser){
             throw new Error("failed to create new user")
         }
-        return user ;
+        return newUser ;
+
     }catch(e : any){
-        console.log("error creating new user")
+        console.log("error creating new user" , e.message)
         throw e ; 
+    }
+}
+
+export const getUserByEmailRepo = async (email : string) => {
+    try {
+       const user = await User.findOne({where : {email : email}}) 
+
+        if(!user){
+            throw new Error("no user found with this email")
+        }
+
+        return user ;
+    } catch (e : any) {
+       console.log("error in get user by email repo" , e.message) 
+        throw e 
     }
 }
