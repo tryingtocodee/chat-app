@@ -8,3 +8,8 @@ export type createUserDto = {
 export type getUserDto = {
     email : string
 }
+
+export type loginUserDto = {
+    email : string 
+password : string 
+}
